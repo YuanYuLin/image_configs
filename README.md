@@ -1,1 +1,1 @@
-# image_configs
+# image_squashfs
