@@ -56,7 +56,7 @@ def MAIN_INSTALL(args):
     iopc.installBin(args["pkg_name"], ops.path_join(output_dir, "interfaces"), "etc/network")
     iopc.installBin(args["pkg_name"], ops.path_join(output_dir, "authorized_keys"), "etc/dropbear")
     iopc.installBin(args["pkg_name"], ops.path_join(output_dir, "rsa.key"), "etc/dropbear")
-    iopc.installBin(args["pkg_name"], ops.path_join(output_dir, "xorg.conf"), "etc/X11")
+    #iopc.installBin(args["pkg_name"], ops.path_join(output_dir, "xorg.conf"), "etc/X11")
     return False
 
 def MAIN_CLEAN_BUILD(args):
