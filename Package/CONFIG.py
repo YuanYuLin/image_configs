@@ -3,12 +3,15 @@ import iopc
 
 pkg_path = ""
 output_dir = ""
+output_rootfs_dir = ""
 
 def set_global(args):
     global pkg_path
     global output_dir 
+    global output_rootfs_dir
     pkg_path = args["pkg_path"]
     output_dir = args["output_path"]
+    output_rootfs_dir = iopc.getTargetRootfs()
 
 def MAIN_ENV(args):
     set_global(args)
@@ -24,6 +27,31 @@ def MAIN_EXTRACT(args):
     ops.copyto(ops.path_join(pkg_path, "dropbear/rsa.key"), output_dir)
     ops.copyto(ops.path_join(pkg_path, "dropbear/authorized_keys"), output_dir)
     ops.copyto(ops.path_join(pkg_path, "X11/xorg.conf"), output_dir)
+
+    print "Extract : " + output_rootfs_dir
+    ops.pkg_mkdir(output_rootfs_dir, "bin")
+    ops.pkg_mkdir(output_rootfs_dir, "dev")
+    ops.mknod_char(ops.path_join(output_rootfs_dir, "dev"), "console", "5", "1")
+    ops.mknod_char(ops.path_join(output_rootfs_dir, "dev"), "null", "1", "3")
+
+    ops.pkg_mkdir(output_rootfs_dir, "etc")
+    ops.pkg_mkdir(ops.path_join(output_rootfs_dir, "etc"), "network")
+    ops.pkg_mkdir(ops.path_join(output_rootfs_dir, "etc/network"), "if-pre-up.d")
+    ops.pkg_mkdir(ops.path_join(output_rootfs_dir, "etc/network"), "if-up.d")
+    ops.pkg_mkdir(ops.path_join(output_rootfs_dir, "etc/network"), "if-down.d")
+    ops.pkg_mkdir(ops.path_join(output_rootfs_dir, "etc/network"), "if-post-down.d")
+    ops.ln(ops.path_join(output_rootfs_dir, "etc"), "/tmp/resolv.conf", "resolv.conf")
+    ops.pkg_mkdir(output_rootfs_dir, "lib")
+    ops.pkg_mkdir(output_rootfs_dir, "mnt")
+    ops.pkg_mkdir(output_rootfs_dir, "root")
+    ops.pkg_mkdir(output_rootfs_dir, "sbin")
+    ops.pkg_mkdir(output_rootfs_dir, "proc")
+    ops.pkg_mkdir(output_rootfs_dir, "sys")
+    ops.pkg_mkdir(output_rootfs_dir, "var")
+    ops.pkg_mkdir(output_rootfs_dir, "tmp")
+    ops.pkg_mkdir(output_rootfs_dir, "cgroup")
+    ops.pkg_mkdir(output_rootfs_dir, "hdd")
+    ops.ln(output_rootfs_dir, "lib", "lib64")
 
     return True
 
