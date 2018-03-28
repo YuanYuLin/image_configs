@@ -42,16 +42,20 @@ def MAIN_EXTRACT(args):
     ops.pkg_mkdir(ops.path_join(output_rootfs_dir, "etc/network"), "if-post-down.d")
     ops.ln(ops.path_join(output_rootfs_dir, "etc"), "/tmp/resolv.conf", "resolv.conf")
     ops.pkg_mkdir(output_rootfs_dir, "lib")
+    ops.pkg_mkdir(output_rootfs_dir, "lib/modules")
     ops.pkg_mkdir(output_rootfs_dir, "mnt")
     ops.pkg_mkdir(output_rootfs_dir, "root")
     ops.pkg_mkdir(output_rootfs_dir, "sbin")
     ops.pkg_mkdir(output_rootfs_dir, "proc")
     ops.pkg_mkdir(output_rootfs_dir, "sys")
-    ops.pkg_mkdir(output_rootfs_dir, "var")
     ops.pkg_mkdir(output_rootfs_dir, "tmp")
+    #ops.pkg_mkdir(output_rootfs_dir, "var")
+    ops.ln(output_rootfs_dir, "/tmp/var", "var")
     ops.pkg_mkdir(output_rootfs_dir, "cgroup")
-    ops.pkg_mkdir(output_rootfs_dir, "hdd")
+    #ops.pkg_mkdir(output_rootfs_dir, "hdd")
+    ops.ln(output_rootfs_dir, "/tmp/hdd", "hdd")
     ops.ln(output_rootfs_dir, "lib", "lib64")
+    ops.ln(output_rootfs_dir, "/var/run", "run")
 
     return True
 
