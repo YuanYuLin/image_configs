@@ -48,6 +48,12 @@ def MAIN_EXTRACT(args):
     ops.pkg_mkdir(output_rootfs_dir, "sbin")
     ops.pkg_mkdir(output_rootfs_dir, "proc")
     ops.pkg_mkdir(output_rootfs_dir, "sys")
+
+    ops.pkg_mkdir(output_rootfs_dir, "usr")
+    ops.pkg_mkdir(output_rootfs_dir, "usr/local")
+    ops.pkg_mkdir(output_rootfs_dir, "usr/local/share")
+    ops.pkg_mkdir(output_rootfs_dir, "usr/local/share/X11")
+
     ops.pkg_mkdir(output_rootfs_dir, "tmp")
     #ops.pkg_mkdir(output_rootfs_dir, "var")
     ops.ln(output_rootfs_dir, "/tmp/var", "var")
