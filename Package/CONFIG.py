@@ -22,11 +22,11 @@ def MAIN_EXTRACT(args):
 
     ops.copyto(ops.path_join(pkg_path, "fstab"), output_dir)
     ops.copyto(ops.path_join(pkg_path, "nsswitch.conf"), output_dir)
-    ops.copyto(ops.path_join(pkg_path, "interfaces"), output_dir)
+    #ops.copyto(ops.path_join(pkg_path, "interfaces"), output_dir)
     ops.copyto(ops.path_join(pkg_path, "passwd"), output_dir)
-    ops.copyto(ops.path_join(pkg_path, "dropbear/rsa.key"), output_dir)
-    ops.copyto(ops.path_join(pkg_path, "dropbear/authorized_keys"), output_dir)
-    ops.copyto(ops.path_join(pkg_path, "X11/xorg.conf"), output_dir)
+    #ops.copyto(ops.path_join(pkg_path, "dropbear/rsa.key"), output_dir)
+    #ops.copyto(ops.path_join(pkg_path, "dropbear/authorized_keys"), output_dir)
+    #ops.copyto(ops.path_join(pkg_path, "X11/xorg.conf"), output_dir)
 
     print "Extract : " + output_rootfs_dir
     ops.pkg_mkdir(output_rootfs_dir, "bin")
@@ -35,12 +35,14 @@ def MAIN_EXTRACT(args):
     ops.mknod_char(ops.path_join(output_rootfs_dir, "dev"), "null", "1", "3")
 
     ops.pkg_mkdir(output_rootfs_dir, "etc")
-    ops.pkg_mkdir(ops.path_join(output_rootfs_dir, "etc"), "network")
-    ops.pkg_mkdir(ops.path_join(output_rootfs_dir, "etc/network"), "if-pre-up.d")
-    ops.pkg_mkdir(ops.path_join(output_rootfs_dir, "etc/network"), "if-up.d")
-    ops.pkg_mkdir(ops.path_join(output_rootfs_dir, "etc/network"), "if-down.d")
-    ops.pkg_mkdir(ops.path_join(output_rootfs_dir, "etc/network"), "if-post-down.d")
+    #ops.pkg_mkdir(ops.path_join(output_rootfs_dir, "etc"), "network")
+    #ops.pkg_mkdir(ops.path_join(output_rootfs_dir, "etc/network"), "if-pre-up.d")
+    #ops.pkg_mkdir(ops.path_join(output_rootfs_dir, "etc/network"), "if-up.d")
+    #ops.pkg_mkdir(ops.path_join(output_rootfs_dir, "etc/network"), "if-down.d")
+    #ops.pkg_mkdir(ops.path_join(output_rootfs_dir, "etc/network"), "if-post-down.d")
+    ops.ln(ops.path_join(output_rootfs_dir, "etc"), "/tmp/network", "network")
     ops.ln(ops.path_join(output_rootfs_dir, "etc"), "/tmp/resolv.conf", "resolv.conf")
+    ops.ln(ops.path_join(output_rootfs_dir, "etc"), "/tmp/dropbear", "dropbear")
     ops.pkg_mkdir(output_rootfs_dir, "lib")
     ops.pkg_mkdir(output_rootfs_dir, "lib/modules")
     ops.pkg_mkdir(output_rootfs_dir, "mnt")
@@ -91,9 +93,9 @@ def MAIN_INSTALL(args):
     iopc.installBin(args["pkg_name"], ops.path_join(output_dir, "fstab"), "etc")
     iopc.installBin(args["pkg_name"], ops.path_join(output_dir, "nsswitch.conf"), "etc")
     iopc.installBin(args["pkg_name"], ops.path_join(output_dir, "passwd"), "etc")
-    iopc.installBin(args["pkg_name"], ops.path_join(output_dir, "interfaces"), "etc/network")
-    iopc.installBin(args["pkg_name"], ops.path_join(output_dir, "authorized_keys"), "etc/dropbear")
-    iopc.installBin(args["pkg_name"], ops.path_join(output_dir, "rsa.key"), "etc/dropbear")
+    #iopc.installBin(args["pkg_name"], ops.path_join(output_dir, "interfaces"), "etc/network")
+    #iopc.installBin(args["pkg_name"], ops.path_join(output_dir, "authorized_keys"), "etc/dropbear")
+    #iopc.installBin(args["pkg_name"], ops.path_join(output_dir, "rsa.key"), "etc/dropbear")
     #iopc.installBin(args["pkg_name"], ops.path_join(output_dir, "xorg.conf"), "etc/X11")
     return False
 
