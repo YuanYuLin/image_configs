@@ -45,6 +45,7 @@ def MAIN_EXTRACT(args):
     ops.ln(ops.path_join(output_rootfs_dir, "etc"), "/tmp/dropbear", "dropbear")
     ops.pkg_mkdir(output_rootfs_dir, "lib")
     ops.pkg_mkdir(output_rootfs_dir, "lib/modules")
+    ops.pkg_mkdir(output_rootfs_dir, "lib/iopcdao")
     ops.pkg_mkdir(output_rootfs_dir, "mnt")
     ops.pkg_mkdir(output_rootfs_dir, "root")
     ops.pkg_mkdir(output_rootfs_dir, "sbin")
@@ -97,6 +98,11 @@ def MAIN_INSTALL(args):
     #iopc.installBin(args["pkg_name"], ops.path_join(output_dir, "authorized_keys"), "etc/dropbear")
     #iopc.installBin(args["pkg_name"], ops.path_join(output_dir, "rsa.key"), "etc/dropbear")
     #iopc.installBin(args["pkg_name"], ops.path_join(output_dir, "xorg.conf"), "etc/X11")
+    return False
+
+def MAIN_SDKENV(args):
+    set_global(args)
+
     return False
 
 def MAIN_CLEAN_BUILD(args):
